@@ -8,31 +8,31 @@ Website pemesanan menu Gacoan secara online dengan tampilan modern, responsif, d
 
 ## ✨ Fitur Utama
 
-- **Hero Carousel Otomatis**  
-  Tampilan utama berupa carousel auto-slide dengan gambar menu unggulan.
+-   **Hero Carousel Otomatis**  
+    Tampilan utama berupa carousel auto-slide dengan gambar menu unggulan.
 
-- **Menu Gacoan**  
-  Grid menu interaktif dengan tombol pemesanan langsung ke WhatsApp.
+-   **Menu Gacoan**  
+    Grid menu interaktif dengan tombol pemesanan langsung ke WhatsApp.
 
-- **Promo & Penawaran Spesial**  
-  Menampilkan promo aktif dan penawaran terbatas.
+-   **Promo & Penawaran Spesial**  
+    Menampilkan promo aktif dan penawaran terbatas.
 
-- **Halaman Produk**  
-  Daftar lengkap semua produk dengan kategori, deskripsi, harga, dan tombol pemesanan.
+-   **Halaman Produk**  
+    Daftar lengkap semua produk dengan kategori, deskripsi, harga, dan tombol pemesanan.
 
-- **Keranjang Belanja**  
-  Kelola pesanan: tambah/kurangi jumlah, hapus produk, dan checkout via WhatsApp.
+-   **Keranjang Belanja**  
+    Kelola pesanan: tambah/kurangi jumlah, hapus produk, dan checkout via WhatsApp.
 
-- **Halaman Kontak**  
-  Formulir kontak + info media sosial dan lokasi outlet.
+-   **Halaman Kontak**  
+    Formulir kontak + info media sosial dan lokasi outlet.
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **Frontend**: [React.js](https://reactjs.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
-- **Deployment**: [Vercel](https://vercel.com/) / [GitHub Pages](https://pages.github.com/)
+-   **Frontend**: [React.js](https://reactjs.org/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [DaisyUI](https://daisyui.com/)
+-   **Deployment**: [Vercel](https://vercel.com/) / [GitHub Pages](https://pages.github.com/)
 
 ---
 
@@ -58,25 +58,28 @@ src/
 ## 🚀 Cara Menjalankan Project
 
 1. **Clone Repository**
-   ```bash
-   git clone https://github.com/username/gacoan-order.git
-   cd gacoan-order
-   ```
+
+    ```bash
+    git clone https://github.com/username/gacoan-order.git
+    cd gacoan-order
+    ```
 
 2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 3. **Jalankan Project**
-   ```bash
-   npm run dev
-   ```
+
+    ```bash
+    npm run dev
+    ```
 
 4. **Build untuk Produksi**
-   ```bash
-   npm run build
-   ```
+    ```bash
+    npm run build
+    ```
 
 ---
 
@@ -95,7 +98,7 @@ src/
 
 ## 📱 Demo Online
 
-🔗 **Demo Live**: [https://username.github.io/gacoan-order](https://username.github.io/gacoan-order)  
+🔗 **Demo Live**: [https://pedas-legacy.vercel.app/](https://pedas-legacy.vercel.app/)  
 🔗 **Pesan via WhatsApp**: [Klik di sini](https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20pesan%20Mie%20Gacoan)
 
 ---
@@ -112,4 +115,5 @@ Silakan fork repository ini, buat branch baru, lakukan perubahan, lalu ajukan **
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 ---
+
 Dibuat dengan ❤️ oleh **Ahmad Bagas Adiputra**
