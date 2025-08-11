@@ -1,6 +1,40 @@
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { data, NavLink, useNavigate } from "react-router-dom";
+import { Success } from "./alert/Success";
 
-export default function Header({ isAdmin, isLoggedIn }) {
+export default function Header() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        const dataLogin = JSON.parse(localStorage.getItem("data-login"));
+        console.log(dataLogin);
+        if (dataLogin){
+            setIsLoggedIn(true);
+            if (dataLogin.user) {
+                if (dataLogin.user.email.toLowerCase() === "ahmadadptr@gmail.com") {
+                    setIsAdmin(true);
+                    return;
+                }
+            } else {
+                if (dataLogin.email.toLowerCase() === "ahmadadptr@gmail.com") {
+                    setIsAdmin(true);
+                    return;
+                }
+            }
+            return;
+        }
+    }, []);
+
+    const handleLogOut = () => {
+        if (confirm("Anda yakin ingin keluar dari akun ini?")) {
+            localStorage.removeItem("data-login");
+            Success("Berhasil keluar dari akun");
+            navigate("/")
+        }
+    };
+
     return (
         <header className="w-full sticky top-0 z-50">
             <nav className="navbar bg-base-100 px-4 md:px-8 shadow-sm">
@@ -94,9 +128,9 @@ export default function Header({ isAdmin, isLoggedIn }) {
                             </NavLink>
                         </>
                     ) : (
-                        <NavLink to="/logout" className="btn-sm btn btn-error">
+                        <button onClick={() => handleLogOut()} className="btn-sm btn btn-error">
                             Keluar
-                        </NavLink>
+                        </button>
                     )}
                 </div>
             </nav>

@@ -1,17 +1,36 @@
 // pages/RegisterPage.jsx
 import React, { useState } from "react";
 import AuthHeader from "../components/AuthHeader";
+import { createUser } from "../services/createUser";
+import { Success } from "../components/alert/Success";
+import { useNavigate } from "react-router-dom";
+import { Error } from "../components/alert/Error";
 
 export default function RegisterPage() {
-    const [form, setForm] = useState({ nama: "", email: "", password: "" });
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ nama: "", email: "", kata_sandi: "", konfirmasiKataSandi: "" });
 
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        console.log("Register Data:", form);
+        if (form.kata_sandi !== form.konfirmasiKataSandi) {
+            Error("Konfirmasi password tidak valid!");
+            return;
+        }
+
+        delete form.konfirmasiKataSandi;
+
+        const hasil = await createUser(form);
+        console.log(hasil);
+        if (hasil.success === false) {
+            Error(hasil.message);
+            return;
+        }
+        Success(hasil.message);
+        navigate("/masuk");
     };
 
     return (
@@ -43,9 +62,18 @@ export default function RegisterPage() {
                             />
                             <input
                                 type="password"
-                                name="password"
+                                name="kata_sandi"
                                 placeholder="Kata Sandi"
-                                value={form.password}
+                                value={form.kata_sandi}
+                                onChange={handleChange}
+                                className="input input-bordered w-full"
+                                required
+                            />
+                            <input
+                                type="password"
+                                name="konfirmasiKataSandi"
+                                placeholder="Konfirmasi Kata Sandi"
+                                value={form.konfirmasiKataSandi}
                                 onChange={handleChange}
                                 className="input input-bordered w-full"
                                 required
