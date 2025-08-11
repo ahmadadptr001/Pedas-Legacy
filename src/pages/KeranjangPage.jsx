@@ -19,20 +19,16 @@ export default function KeranjangPage() {
         },
     ]);
 
-    // Hitung total harga
     const totalHarga = keranjang.reduce((total, item) => total + item.harga * item.jumlah, 0);
 
-    // Tambah jumlah
     const tambahJumlah = id => {
         setKeranjang(prev => prev.map(item => (item.id === id ? { ...item, jumlah: item.jumlah + 1 } : item)));
     };
 
-    // Kurangi jumlah
     const kurangJumlah = id => {
         setKeranjang(prev => prev.map(item => (item.id === id && item.jumlah > 1 ? { ...item, jumlah: item.jumlah - 1 } : item)));
     };
 
-    // Hapus item
     const hapusItem = id => {
         setKeranjang(prev => prev.filter(item => item.id !== id));
     };
@@ -44,46 +40,79 @@ export default function KeranjangPage() {
             {keranjang.length === 0 ? (
                 <p className="text-center text-lg">Keranjang kosong 😢</p>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="table w-full bg-base-100 shadow-lg rounded-lg">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Harga</th>
-                                <th>Jumlah</th>
-                                <th>Total</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {keranjang.map(item => (
-                                <tr key={item.id}>
-                                    <td className="flex items-center gap-4">
-                                        <img src={item.gambar} alt={item.nama} className="w-16 h-16 object-cover rounded-lg" />
-                                        <span>{item.nama}</span>
-                                    </td>
-                                    <td>Rp {item.harga.toLocaleString()}</td>
-                                    <td>
-                                        <div className="flex items-center gap-2">
-                                            <button className="btn btn-xs btn-outline" onClick={() => kurangJumlah(item.id)}>
-                                                -
-                                            </button>
-                                            <span>{item.jumlah}</span>
-                                            <button className="btn btn-xs btn-outline" onClick={() => tambahJumlah(item.id)}>
-                                                +
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td>Rp {(item.harga * item.jumlah).toLocaleString()}</td>
-                                    <td>
-                                        <button className="btn btn-error btn-xs" onClick={() => hapusItem(item.id)}>
-                                            Hapus
-                                        </button>
-                                    </td>
+                <>
+                    {/* TABLE MODE - tampil di layar besar */}
+                    <div className="hidden md:block overflow-x-auto">
+                        <table className="table table-zebra w-full bg-base-100 shadow-lg rounded-lg">
+                            <thead>
+                                <tr>
+                                    <th>Produk</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {keranjang.map(item => (
+                                    <tr key={item.id}>
+                                        <td className="flex items-center gap-4">
+                                            <img src={item.gambar} alt={item.nama} className="w-16 h-16 object-cover rounded-lg" />
+                                            <span>{item.nama}</span>
+                                        </td>
+                                        <td>Rp {item.harga.toLocaleString()}</td>
+                                        <td>
+                                            <div className="flex items-center gap-2">
+                                                <button className="btn btn-xs btn-outline" onClick={() => kurangJumlah(item.id)}>
+                                                    -
+                                                </button>
+                                                <span>{item.jumlah}</span>
+                                                <button className="btn btn-xs btn-outline" onClick={() => tambahJumlah(item.id)}>
+                                                    +
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>Rp {(item.harga * item.jumlah).toLocaleString()}</td>
+                                        <td>
+                                            <button className="btn btn-error btn-xs" onClick={() => hapusItem(item.id)}>
+                                                Hapus
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* CARD MODE - tampil di layar kecil */}
+                    <div className="grid grid-cols-1 gap-4 md:hidden">
+                        {keranjang.map(item => (
+                            <div key={item.id} className="bg-base-100 rounded-lg shadow-md p-4 flex flex-col gap-3">
+                                <div className="flex gap-4">
+                                    <img src={item.gambar} alt={item.nama} className="w-20 h-20 object-cover rounded-lg" />
+                                    <div className="flex flex-col justify-between">
+                                        <h3 className="font-bold">{item.nama}</h3>
+                                        <p className="text-primary font-semibold">Rp {item.harga.toLocaleString()}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <button className="btn btn-xs btn-outline" onClick={() => kurangJumlah(item.id)}>
+                                            -
+                                        </button>
+                                        <span>{item.jumlah}</span>
+                                        <button className="btn btn-xs btn-outline" onClick={() => tambahJumlah(item.id)}>
+                                            +
+                                        </button>
+                                    </div>
+                                    <button className="btn btn-error btn-xs" onClick={() => hapusItem(item.id)}>
+                                        Hapus
+                                    </button>
+                                </div>
+                                <div className="text-right font-bold">Total: Rp {(item.harga * item.jumlah).toLocaleString()}</div>
+                            </div>
+                        ))}
+                    </div>
 
                     {/* Total harga & tombol checkout */}
                     <div className="flex flex-col md:flex-row justify-between items-center mt-6 bg-base-100 p-4 rounded-lg shadow-md">
@@ -97,7 +126,7 @@ export default function KeranjangPage() {
                             Checkout via WhatsApp
                         </a>
                     </div>
-                </div>
+                </>
             )}
         </section>
     );

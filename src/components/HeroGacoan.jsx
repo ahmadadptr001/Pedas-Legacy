@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function HeroGacoan() {
     const slides = [
@@ -25,59 +25,37 @@ export default function HeroGacoan() {
         },
     ];
 
-    useEffect(() => {
-        let index = 0;
-        const container = document.querySelector(".carousel");
-        let interval;
-
-        const start = () => {
-            interval = setInterval(() => {
-                index = (index + 1) % slides.length;
-                container.scrollTo({
-                    left: container.clientWidth * index,
-                    behavior: "smooth",
-                });
-            }, 3500);
-        };
-
-        const stop = () => clearInterval(interval);
-
-        container.addEventListener("mouseenter", stop);
-        container.addEventListener("mouseleave", start);
-
-        start();
-        return () => {
-            stop();
-            container.removeEventListener("mouseenter", stop);
-            container.removeEventListener("mouseleave", start);
-        };
-    }, [slides]);
-
     return (
         <section className="w-full">
-            <div className="carousel w-full h-[60vh] md:h-[80vh]">
+            <div className="carousel w-full h-[65vh] md:h-[85vh]">
                 {slides.map((slide, idx) => (
                     <div key={slide.id} id={`slide${slide.id}`} className="carousel-item relative w-full">
-                        {/* Background gambar */}
-                        <img src={slide.img} alt={slide.title} className="blur-xs w-full h-full object-cover" />
+                        {/* Background Gambar */}
+                        <img src={slide.img} alt={slide.title} className="w-full h-full object-cover" />
 
-                        {/* Overlay konten */}
-                        <div className="absolute inset-0 bg-black/80 flex items-center px-4 md:px-16">
-                            <div className="text-white max-w-lg">
-                                <h1 className="text-2xl md:text-5xl font-bold">{slide.title}</h1>
+                        {/* Overlay gradasi */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent flex items-center px-6 md:px-16">
+                            <div className="text-white max-w-xl">
+                                <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg">{slide.title}</h1>
                                 <p className="py-4 text-sm md:text-lg">{slide.desc}</p>
-                                <a href={slide.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                                <a href={slide.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-md md:btn-lg shadow-lg">
                                     Pesan Sekarang
                                 </a>
                             </div>
                         </div>
 
-                        {/* Navigasi manual */}
-                        <div className="absolute flex justify-between transform -translate-y-1/2 left-3 right-3 top-1/2">
-                            <a href={`#slide${slides[(idx - 1 + slides.length) % slides.length].id}`} className="btn btn-circle btn-sm md:btn-md">
+                        {/* Navigasi Manual */}
+                        <div className="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+                            <a
+                                href={`#slide${slides[(idx - 1 + slides.length) % slides.length].id}`}
+                                className="btn btn-circle bg-black/50 hover:bg-primary text-white border-none"
+                            >
                                 ❮
                             </a>
-                            <a href={`#slide${slides[(idx + 1) % slides.length].id}`} className="btn btn-circle btn-sm md:btn-md">
+                            <a
+                                href={`#slide${slides[(idx + 1) % slides.length].id}`}
+                                className="btn btn-circle bg-black/50 hover:bg-primary text-white border-none"
+                            >
                                 ❯
                             </a>
                         </div>
