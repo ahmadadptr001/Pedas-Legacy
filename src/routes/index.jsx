@@ -6,10 +6,14 @@ import KontakPage from "../pages/KontakPage";
 import ProdukPage from "../pages/ProdukPage";
 import KeranjangPage from "../pages/KeranjangPage";
 import TentangPage from "../pages/TentangPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 export default function AppRoutes(){
     return (
         <Routes>
+            <Route path="/masuk" element={<LoginPage />}></Route>
+            <Route path="/daftar" element={<RegisterPage />}></Route>
             <Route path="/" element={<LandingPage />} />
             <Route element={<MainLayout />}>
                 <Route path="/beranda" element={<HomePage />}></Route>
