@@ -8,7 +8,7 @@ export default function LandingPage() {
                 <div className="hero-content flex-col lg:flex-row-reverse gap-12">
                     <img
                         src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=800&q=80"
-                        className="max-w-sm rounded-lg shadow-2xl"
+                        className="w-full xs:w-auto sm:max-w-sm rounded-lg shadow-2xl"
                         alt="Mie Pedas Legacy"
                     />
                     <div className="max-w-lg text-center lg:text-left">
