@@ -30,10 +30,13 @@ export default function LoginPage() {
         }
 
         const hasil = await loginManual(form.email, form.password);
-        Success(hasil.message);
-        localStorage.setItem("data-login", JSON.stringify(hasil));
-        navigate("/beranda");
-        return;
+        if (hasil.success){
+            Success(hasil.message);
+            localStorage.setItem("data-login", JSON.stringify(hasil));
+            navigate("/beranda");
+            return;
+        }
+        Error(hasil.message);
     };
 
     const handleLoginGoogle = async () => {
