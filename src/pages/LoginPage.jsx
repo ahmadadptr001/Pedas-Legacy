@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { loginManual } from "../services/authManual";
 import AuthHeader from "../components/AuthHeader";
+import ReCAPTCHA from "react-google-recaptcha";
 import { loginWithGoogle } from "../services/auth";
 import { Success } from "../components/alert/Success";
+import { Error } from "../components/alert/Error"
 import { useNavigate } from "react-router-dom";
-import { Error } from "../components/alert/Error";
 
 export default function LoginPage() {
     const navigate = useNavigate();
     const [form, setForm] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const recaptchaRef = useRef();
 
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,12 +21,19 @@ export default function LoginPage() {
     const handleSubmit = async e => {
         e.preventDefault();
         setError(null);
+
+        // mengecek rechaptcha
+        const token = await recaptchaRef.current.getValue();
+        if (!token) {
+            Error("Harap selesaikan verifikasi reCAPTCHA.");
+            return;
+        }
+
         const hasil = await loginManual(form.email, form.password);
         Success(hasil.message);
-        localStorage.setItem("data-login", JSON.stringify(hasil))
+        localStorage.setItem("data-login", JSON.stringify(hasil));
         navigate("/beranda");
         return;
-
     };
 
     const handleLoginGoogle = async () => {
@@ -38,7 +47,7 @@ export default function LoginPage() {
             setError(error.message);
         } else {
             Success("Berhasil login!");
-            localStorage.setItem("data-login", JSON.stringify(user))
+            localStorage.setItem("data-login", JSON.stringify(user));
             navigate("/beranda");
         }
     };
@@ -72,15 +81,17 @@ export default function LoginPage() {
                                 required
                             />
                             {error && <p className="text-error text-center">{error}</p>}
-                            <button type="submit" className={`btn btn-primary w-full ${loading ? "loading" : ""}`} disabled={loading}>
+                            <ReCAPTCHA sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY} ref={recaptchaRef} className="flex justify-center"/>
+                            <button type="submit" className={`btn btn-primary w-full`}>
                                 Masuk
                             </button>
                         </form>
 
                         <div className="divider">atau</div>
 
-                        <button onClick={handleLoginGoogle} className={`btn btn-soft btn-warning  w-full ${loading ? "loading" : ""}`} disabled={loading}>
-                            Masuk dengan Google
+                        <button onClick={handleLoginGoogle} className={`w-max-sm cursor-pointer mx-auto ${loading ? "loading" : ""}`} disabled={loading}>
+                            <i className="fab fa-google text-xl border p-2 rounded-[50%] text-primary"></i>{" "}
+                            <span className="text-xl text-secondary"> oogle</span>
                         </button>
 
                         <p className="text-sm text-center mt-4">
