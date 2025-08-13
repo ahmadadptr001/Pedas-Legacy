@@ -9,7 +9,7 @@ export async function loginManual(email, password) {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-        return { success: false, message: "User tidak ditemukan" };
+        return { success: false, message: "Email atau Password salah!" };
     }
 
     // Asumsi email unik, ambil data user pertama
@@ -18,8 +18,8 @@ export async function loginManual(email, password) {
 
     // Cek password (ingat ini tidak aman kalau password disimpan plain text)
     if (userData.kata_sandi !== password) {
-        return { success: false, message: "Password salah" };
+        return { success: false, message: "Email atau password salah" };
     }
 
-    return { success: true, message: "Login berhasil", user: userData};
+    return { success: true, message: "Login berhasil", user: userData };
 }

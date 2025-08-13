@@ -4,7 +4,7 @@ import AuthHeader from "../components/AuthHeader";
 import ReCAPTCHA from "react-google-recaptcha";
 import { loginWithGoogle } from "../services/auth";
 import { Success } from "../components/alert/Success";
-import { Error } from "../components/alert/Error"
+import { Error } from "../components/alert/Error";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
@@ -30,7 +30,7 @@ export default function LoginPage() {
         }
 
         const hasil = await loginManual(form.email, form.password);
-        if (hasil.success){
+        if (hasil.success) {
             Success(hasil.message);
             localStorage.setItem("data-login", JSON.stringify(hasil));
             navigate("/beranda");
@@ -84,7 +84,7 @@ export default function LoginPage() {
                                 required
                             />
                             {error && <p className="text-error text-center">{error}</p>}
-                            <ReCAPTCHA sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY} ref={recaptchaRef} className="flex justify-center"/>
+                            <ReCAPTCHA sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY} ref={recaptchaRef} className="flex justify-center" />
                             <button type="submit" className={`btn btn-primary w-full`}>
                                 Masuk
                             </button>
