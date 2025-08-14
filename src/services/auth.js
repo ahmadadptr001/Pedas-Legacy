@@ -9,7 +9,6 @@ export const loginWithGoogle = async () => {
     try {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
-
         const userDocRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userDocRef);
         if (!userSnapshot.exists()) {
@@ -17,6 +16,8 @@ export const loginWithGoogle = async () => {
                 uid: user.uid,
                 nama: user.displayName,
                 email: user.email,
+                photoURL: user.photoURL, 
+                phoneNumber: user.phoneNumber,
                 createdAt: serverTimestamp(),
                 provider: "google",
             });
@@ -42,4 +43,3 @@ export const onUserStateChange = callback => {
         callback(user);
     });
 };
-

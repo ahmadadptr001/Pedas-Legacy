@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import HomePage from "../pages/HomePage";
 import LandingPage from "../pages/LandingPage";
@@ -9,9 +9,13 @@ import TentangPage from "../pages/TentangPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import { useState } from "react";
+import AdminLayout from "../layouts/AdminLayout";
+import DashboardAdmin from "../pages/DashboardAdmin";
+import NotFound from "../pages/NotFound";
+import NotFoundAdmin from "../pages/NotFoundAdmin";
+import KelolaPengguna from "../pages/KelolaPengguna";
 
-export default function AppRoutes(){
-
+export default function AppRoutes() {
     return (
         <Routes>
             <Route path="/masuk" element={<LoginPage />}></Route>
@@ -24,6 +28,18 @@ export default function AppRoutes(){
                 <Route path="/keranjang" element={<KeranjangPage />}></Route>
                 <Route path="/tentang" element={<TentangPage />}></Route>
             </Route>
+
+            <Route path="/admin" element={<Navigate to="/admin/404" replace />} />
+            <Route path="/admin/*">
+                <Route element={<AdminLayout />}>
+                    <Route path="dashboard" element={<DashboardAdmin />} />
+                    <Route path="users" element={<KelolaPengguna />} />
+                    <Route path="*" element={<NotFoundAdmin />} />
+                </Route>
+            </Route>
+
+            {/* handle halaman 404 */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
-    )
+    );
 }

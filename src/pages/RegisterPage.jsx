@@ -5,6 +5,7 @@ import { createUser } from "../services/createUser";
 import { Success } from "../components/alert/Success";
 import { useNavigate } from "react-router-dom";
 import { Error } from "../components/alert/Error";
+import Swal from "sweetalert2"; // pastikan sudah diinstall: npm install sweetalert2
 
 export default function RegisterPage() {
     const navigate = useNavigate();
@@ -16,19 +17,54 @@ export default function RegisterPage() {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        if (form.kata_sandi !== form.konfirmasiKataSandi) {
-            Error("Konfirmasi password tidak valid!");
+
+        // Cek input kosong
+        if (!form.nama.trim() || !form.email.trim() || !form.kata_sandi.trim() || !form.konfirmasiKataSandi.trim()) {
+            Error("Semua kolom wajib diisi!");
             return;
         }
 
-        delete form.konfirmasiKataSandi;
+        // Cek panjang nama
+        if (form.nama.length < 3 || form.nama.length > 50) {
+            Error("Nama harus antara 3 sampai 50 karakter!");
+            return;
+        }
 
-        const hasil = await createUser(form);
-        console.log(hasil);
+        // Cek panjang kata sandi
+        if (form.kata_sandi.length < 6 || form.kata_sandi.length > 30) {
+            Error("Kata sandi harus antara 6 sampai 30 karakter!");
+            return;
+        }
+
+        // Cek konfirmasi kata sandi
+        if (form.kata_sandi !== form.konfirmasiKataSandi) {
+            Error("Konfirmasi kata sandi tidak cocok!");
+            return;
+        }
+
+        // Hapus konfirmasi sebelum dikirim
+        const { konfirmasiKataSandi, ...dataUser } = form;
+
+        // Tampilkan loading
+        Swal.fire({
+            title: "Memproses...",
+            text: "Mohon tunggu sebentar",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
+        const hasil = await createUser(dataUser);
+
+        // Tutup loading
+        Swal.close();
+
         if (hasil.success === false) {
             Error(hasil.message);
             return;
         }
+
         Success(hasil.message);
         navigate("/masuk");
     };
@@ -50,6 +86,7 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 className="input input-bordered w-full"
                                 required
+                                maxLength={50}
                             />
                             <input
                                 type="email"
@@ -68,6 +105,8 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 className="input input-bordered w-full"
                                 required
+                                minLength={6}
+                                maxLength={30}
                             />
                             <input
                                 type="password"
@@ -77,6 +116,8 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 className="input input-bordered w-full"
                                 required
+                                minLength={6}
+                                maxLength={30}
                             />
                             <button type="submit" className="btn btn-primary w-full">
                                 Daftar

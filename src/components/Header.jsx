@@ -69,7 +69,7 @@ export default function Header() {
 
                         {isAdmin && (
                             <NavLink
-                                to="/admin"
+                                to="/admin/dashboard"
                                 className={({ isActive }) => (isActive ? "text-accent font-semibold" : "text-base hover:text-accent transition-colors")}
                             >
                                 Admin
@@ -117,7 +117,7 @@ export default function Header() {
                                 <>
                                     <li className="border-t mt-2 pt-2 font-bold">Admin</li>
                                     <li>
-                                        <NavLink to="/admin">
+                                        <NavLink to="/admin/dashboard">
                                             <i className="fas fa-tachometer-alt"></i> Dashboard
                                         </NavLink>
                                     </li>
