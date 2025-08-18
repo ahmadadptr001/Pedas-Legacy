@@ -14,7 +14,7 @@ export const setupRecaptcha = (elementId = "recaptcha-container", invisible = tr
             {
                 size: invisible ? "invisible" : "normal",
                 callback: response => {
-                    console.log("reCAPTCHA sukses:", response);
+                    console.log("reCAPTCHA sukses");
                 },
                 "expired-callback": () => {
                     console.warn("reCAPTCHA kadaluarsa, silakan ulangi.");

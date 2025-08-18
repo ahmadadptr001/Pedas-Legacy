@@ -11,6 +11,7 @@ export const loginWithGoogle = async () => {
         const user = result.user;
         const userDocRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userDocRef);
+
         if (!userSnapshot.exists()) {
             await setDoc(userDocRef, {
                 uid: user.uid,
@@ -24,6 +25,7 @@ export const loginWithGoogle = async () => {
         }
 
         return { user, error: null };
+        
     } catch (error) {
         return { user: null, error };
     }

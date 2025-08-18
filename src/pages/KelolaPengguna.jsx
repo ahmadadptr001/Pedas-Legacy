@@ -15,7 +15,6 @@ export default function KelolaPengguna() {
                     const nama = item.displayName || item.nama;
                     return nama.toLowerCase().includes(queryInput.toLowerCase());
                 });
-                console.log(new_users);
                 setUsers(new_users)
                 return;
             }

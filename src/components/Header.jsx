@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+
 import { Success } from "./alert/Success";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faSignOutAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +29,7 @@ export default function Header() {
     }, []);
 
     const handleLogOut = () => {
-        if (confirm("Anda yakin ingin keluar dari akun ini?")) {
+        if (window.confirm("Anda yakin ingin keluar dari akun ini?")) {
             localStorage.removeItem("data-login");
             Success("Berhasil keluar dari akun");
             navigate("/");
@@ -40,9 +41,9 @@ export default function Header() {
             <nav className="navbar bg-base-100 px-4 md:px-8 shadow-sm">
                 {/* Brand di kiri */}
                 <div className="navbar-start flex items-center">
-                    <NavLink to="/" className="flex items-center font-bold text-xl">
+                    <a href="/" className="flex items-center font-bold text-xl">
                         Pedas<span className="text-primary">Legacy</span>
-                    </NavLink>
+                    </a>
                 </div>
 
                 {/* Menu tengah untuk desktop */}
@@ -88,58 +89,58 @@ export default function Header() {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact bg-base-300 dropdown-content mt-3 p-2 shadow rounded-box w-52">
                             <li>
-                                <NavLink to="/beranda">
+                                <a href="/beranda">
                                     <i className="fas fa-home"></i> Beranda
-                                </NavLink>
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/produk">
+                                <a href="/produk">
                                     <i className="fas fa-box"></i> Produk
-                                </NavLink>
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/tentang">
+                                <a href="/tentang">
                                     <i className="fas fa-info-circle"></i> Tentang
-                                </NavLink>
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/kontak">
+                                <a href="/kontak">
                                     <i className="fas fa-envelope"></i> Kontak
-                                </NavLink>
+                                </a>
                             </li>
                             <li>
-                                <NavLink to="/keranjang">
+                                <a href="/keranjang">
                                     <i className="fas fa-shopping-cart"></i> Keranjang
-                                </NavLink>
+                                </a>
                             </li>
 
                             {isAdmin && (
                                 <>
                                     <li className="border-t mt-2 pt-2 font-bold">Admin</li>
                                     <li>
-                                        <NavLink to="/admin/dashboard">
+                                        <a href="/admin/dashboard">
                                             <i className="fas fa-tachometer-alt"></i> Dashboard
-                                        </NavLink>
+                                        </a>
                                     </li>
                                     <li>
-                                        <NavLink to="/admin/produk">
+                                        <a href="/admin/produk">
                                             <i className="fas fa-cubes"></i> Kelola Produk
-                                        </NavLink>
+                                        </a>
                                     </li>
                                     <li>
-                                        <NavLink to="/admin/promo">
+                                        <a href="/admin/promo">
                                             <i className="fas fa-tags"></i> Kelola Promo
-                                        </NavLink>
+                                        </a>
                                     </li>
                                     <li>
-                                        <NavLink to="/admin/outlet">
+                                        <a href="/admin/outlet">
                                             <i className="fas fa-store"></i> Kelola Outlet
-                                        </NavLink>
+                                        </a>
                                     </li>
                                     <li>
-                                        <NavLink to="/admin/laporan">
+                                        <a href="/admin/laporan">
                                             <i className="fas fa-chart-line"></i> Laporan
-                                        </NavLink>
+                                        </a>
                                     </li>
                                 </>
                             )}
@@ -147,12 +148,12 @@ export default function Header() {
                             <li className="border-t mt-2 pt-2">
                                 {!isLoggedIn ? (
                                     <>
-                                        <NavLink to="/daftar">
+                                        <a href="/daftar">
                                             <FontAwesomeIcon icon={faUserPlus} /> Daftar
-                                        </NavLink>
-                                        <NavLink to="/masuk">
+                                        </a>
+                                        <a href="/masuk">
                                             <FontAwesomeIcon icon={faSignInAlt} /> Masuk
-                                        </NavLink>
+                                        </a>
                                     </>
                                 ) : (
                                     <button onClick={handleLogOut}>
@@ -168,12 +169,12 @@ export default function Header() {
                 <div className="navbar-end gap-2 hidden lg:flex">
                     {!isLoggedIn ? (
                         <>
-                            <NavLink to="/daftar" className="btn-sm btn btn-ghost">
+                            <a href="/daftar" className="btn-sm btn btn-ghost">
                                 <FontAwesomeIcon icon={faUserPlus} /> Daftar
-                            </NavLink>
-                            <NavLink to="/masuk" className="btn-sm btn btn-primary">
+                            </a>
+                            <a href="/masuk" className="btn-sm btn btn-primary">
                                 <FontAwesomeIcon icon={faSignInAlt} /> Masuk
-                            </NavLink>
+                            </a>
                         </>
                     ) : (
                         <button onClick={handleLogOut} className="btn-sm btn btn-error">

@@ -1,3 +1,4 @@
+import { hash } from "../components/utils/hash_password";
 import { db } from "./db";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 
@@ -13,6 +14,11 @@ export async function createUser(userData) {
             // Email sudah terdaftar
             return { success: false, message: "Email sudah digunakan, silakan pakai email lain." };
         }
+
+        // hash kata sandi
+        const kata_sandi = userData.kata_sandi;
+        const hashSandi = await hash(kata_sandi);
+        userData.kata_sandi = hashSandi;
 
         // Jika belum ada email yang sama, buat user baru
         const docRef = await addDoc(usersRef, userData);

@@ -1,8 +1,11 @@
+import { compare, hash } from "../components/utils/hash_password";
 import { db } from "./db";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 export async function loginManual(email, password) {
     const usersRef = collection(db, "users");
+
+
     // Query user dengan email yang sama
     const q = query(usersRef, where("email", "==", email));
 
@@ -17,7 +20,8 @@ export async function loginManual(email, password) {
     const userData = userDoc.data();
 
     // Cek password (ingat ini tidak aman kalau password disimpan plain text)
-    if (userData.kata_sandi !== password) {
+    const compared = await compare(password, userData.kata_sandi);
+    if (!compared) {
         return { success: false, message: "Email atau password salah" };
     }
 
