@@ -4,6 +4,9 @@ import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./db";
 
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+    prompt: "select_account", // selalu munculin popup pilih akun
+});
 
 export const loginWithGoogle = async () => {
     try {
@@ -17,7 +20,7 @@ export const loginWithGoogle = async () => {
                 uid: user.uid,
                 nama: user.displayName,
                 email: user.email,
-                photoURL: user.photoURL, 
+                photoURL: user.photoURL,
                 phoneNumber: user.phoneNumber,
                 createdAt: serverTimestamp(),
                 provider: "google",
@@ -25,7 +28,6 @@ export const loginWithGoogle = async () => {
         }
 
         return { user, error: null };
-        
     } catch (error) {
         return { user: null, error };
     }

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { auth } from "../services/db"; // Import auth dari Firebase
 import Swal from "sweetalert2";
+import { signOut } from "firebase/auth";
 
 export default function HeaderAdmin() {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function HeaderAdmin() {
         });
 
         if (result.isConfirmed) {
-            await auth.signOut();
+            await signOut(auth)
             Swal.fire({
                 icon: "success",
                 title: "Berhasil Logout",

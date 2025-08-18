@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Success } from "./alert/Success";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faSignOutAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/db";
 
 export default function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,8 +30,9 @@ export default function Header() {
         }
     }, []);
 
-    const handleLogOut = () => {
+    const handleLogOut = async () => {
         if (window.confirm("Anda yakin ingin keluar dari akun ini?")) {
+            await signOut(auth);
             localStorage.removeItem("data-login");
             Success("Berhasil keluar dari akun");
             navigate("/");
