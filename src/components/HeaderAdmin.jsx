@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { auth } from "../services/db"; // Import auth dari Firebase
+import { auth } from "../services/db"; 
 import Swal from "sweetalert2";
 import { signOut } from "firebase/auth";
 
@@ -11,6 +11,7 @@ export default function HeaderAdmin() {
     // Proteksi halaman admin
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
+            console.log(currentUser)
             if (!currentUser) {
                 Swal.fire({
                     icon: "warning",
@@ -88,14 +89,14 @@ export default function HeaderAdmin() {
                             </span>
                         </li>
                         <li>
-                            <a>
+                            <NavLink to="/admin/profil">
                                 <i className="fa fa-user mr-2"></i> Profil
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a>
+                            <NavLink to="/admin/Pengaturan">
                                 <i className="fa fa-cog mr-2"></i> Pengaturan
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
                             <button onClick={handleLogout} className="text-error">

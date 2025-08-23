@@ -44,8 +44,8 @@ export default function Header() {
             <nav className="navbar bg-base-100 px-4 md:px-8 shadow-sm">
                 {/* Brand di kiri */}
                 <div className="navbar-start flex items-center">
-                    <a href="/" className="flex items-center font-bold text-xl">
-                        Pedas<span className="text-primary">Legacy</span>
+                    <a href="/" className="flex items-center text-primary font-bold text-xl">
+                        Pedas<span className="text-secondary">Legacy</span>
                     </a>
                 </div>
 
@@ -54,19 +54,19 @@ export default function Header() {
                     <ul className="menu menu-horizontal px-1 gap-4">
                         <NavLink
                             to="/beranda"
-                            className={({ isActive }) => (isActive ? "text-primary font-semibold" : "text-base hover:text-primary transition-colors")}
+                            className={({ isActive }) => (isActive ? "text-primary" : "hover:text-primary transition-colors")}
                         >
                             Beranda
                         </NavLink>
                         <NavLink
                             to="/produk"
-                            className={({ isActive }) => (isActive ? "text-primary font-semibold" : "text-base hover:text-primary transition-colors")}
+                            className={({ isActive }) => (isActive ? "text-primary" : "hover:text-primary transition-colors")}
                         >
                             Produk
                         </NavLink>
                         <NavLink
                             to="/keranjang"
-                            className={({ isActive }) => (isActive ? "text-primary font-semibold" : "text-base hover:text-primary transition-colors")}
+                            className={({ isActive }) => (isActive ? "text-primary" : "hover:text-primary transition-colors")}
                         >
                             Keranjang
                         </NavLink>
@@ -74,7 +74,7 @@ export default function Header() {
                         {isAdmin && (
                             <NavLink
                                 to="/admin/dashboard"
-                                className={({ isActive }) => (isActive ? "text-accent font-semibold" : "text-base hover:text-accent transition-colors")}
+                                className={({ isActive }) => (isActive ? "text-accent" : "hover:text-accent transition-colors")}
                             >
                                 Admin
                             </NavLink>

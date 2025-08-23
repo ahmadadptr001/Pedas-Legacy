@@ -14,6 +14,10 @@ import DashboardAdmin from "../pages/DashboardAdmin";
 import NotFound from "../pages/NotFound";
 import NotFoundAdmin from "../pages/NotFoundAdmin";
 import KelolaPengguna from "../pages/KelolaPengguna";
+import Profil from "../pages/Profil";
+import Pengaturan from "../pages/Pengaturan";
+import NotifikasiMasuk from "../pages/NotifikasiMasuk";
+import PengaturanNotifikasi from "../pages/PengaturanNotifikasi";
 
 export default function AppRoutes() {
     return (
@@ -32,8 +36,12 @@ export default function AppRoutes() {
             <Route path="/admin" element={<Navigate to="/admin/404" replace />} />
             <Route path="/admin/*">
                 <Route element={<AdminLayout />}>
+                    <Route path="profil" element={<Profil />} />
                     <Route path="dashboard" element={<DashboardAdmin />} />
                     <Route path="users" element={<KelolaPengguna />} />
+                    <Route path="pengaturan" element={<Pengaturan />} />
+                    <Route path="notifikasi-masuk" element={<NotifikasiMasuk />} />
+                    <Route path="pengaturan-notifikasi" element={<PengaturanNotifikasi />} />
                     <Route path="*" element={<NotFoundAdmin />} />
                 </Route>
             </Route>
